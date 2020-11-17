@@ -1,7 +1,7 @@
 const request = require('supertest');
+const jwt = require('jsonwebtoken');
 const app = require('../src/app');
 const User = require('../src/models/user');
-const jwt = require('jsonwebtoken');
 const { userOneId, userOne, userTwo, setupDatabase } = require('./fixtures/db');
 
 beforeEach(setupDatabase);
