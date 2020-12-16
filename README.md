@@ -24,8 +24,8 @@ Task manager API deployed at https://jxu-task-app.herokuapp.com/
     "password": "janedoe2"
    } ```
 
-* POST /users/logout \
-* POST /users/logoutALL \
+* POST /users/logout 
+* POST /users/logoutALL 
 * POST /tasks \
   Create a task bound to logged in user. \
   Sample data: ```{
@@ -40,7 +40,7 @@ Task manager API deployed at https://jxu-task-app.herokuapp.com/
   GET /tasks?completed=false \
   GET /tasks?limit=10&skip=10 \
   GET /tasks?sortBy=createdAt_desc \
-* GET /tasks/:id \
+* GET /tasks/:id 
 * PATCH /users/me
 * PATCH /tasks/:id
 * DELETE /users/me
