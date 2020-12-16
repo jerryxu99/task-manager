@@ -55,6 +55,7 @@ router.get('/tasks', auth, async (req, res) => {
   }
 });
 
+// Get task by id
 router.get('/tasks/:id', auth, async (req, res) => {
   const _id = req.params.id;
 
@@ -71,6 +72,7 @@ router.get('/tasks/:id', auth, async (req, res) => {
   }
 });
 
+// Update task by id
 router.patch('/tasks/:id', auth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ['description', 'completed'];
@@ -102,6 +104,7 @@ router.patch('/tasks/:id', auth, async (req, res) => {
   }
 });
 
+// Delete task by id
 router.delete('/tasks/:id', auth, async (req, res) => {
   try {
     const task = await Task.findOneAndDelete({

@@ -59,7 +59,7 @@ test('Should fetch only completed tasks', async () => {
   expect(response.body.length).toEqual(1);
 });
 
-test('SHould fetch only incomplete tasks', async () => {
+test('Should fetch only incomplete tasks', async () => {
   const response = await request(app)
     .get('/tasks?completed=false')
     .set('Authorization', `Bearer ${userOne.tokens[0].token}`)

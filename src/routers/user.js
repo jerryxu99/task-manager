@@ -7,6 +7,7 @@ const auth = require('../middleware/auth');
 
 const router = new express.Router();
 
+// generate new user
 router.post('/users', async (req, res) => {
   const user = new User(req.body);
 
@@ -19,6 +20,7 @@ router.post('/users', async (req, res) => {
   }
 });
 
+// login
 router.post('/users/login', async (req, res) => {
   try {
     const user = await User.findByCredentials(
@@ -32,6 +34,7 @@ router.post('/users/login', async (req, res) => {
   }
 });
 
+// logout (rm current token)
 router.post('/users/logout', auth, async (req, res) => {
   try {
     req.user.tokens = req.user.tokens.filter(
@@ -45,6 +48,7 @@ router.post('/users/logout', auth, async (req, res) => {
   }
 });
 
+// logout (rm all tokens)
 router.post('/users/logoutAll', auth, async (req, res) => {
   try {
     req.user.tokens = [];
@@ -60,6 +64,7 @@ router.get('/users/me', auth, async (req, res) => {
   res.send(req.user);
 });
 
+// update your user info
 router.patch('/users/me', auth, async (req, res) => {
   const updates = Object.keys(req.body);
   const allowedUpdates = ['name', 'email', 'password', 'age'];
@@ -76,16 +81,13 @@ router.patch('/users/me', auth, async (req, res) => {
     updates.forEach((update) => (req.user[update] = req.body[update]));
     await req.user.save();
 
-    // if (!user) {
-    //   return res.status(404).send();
-    // }
-
     res.send(req.user);
   } catch (e) {
     res.status(400).send(e);
   }
 });
 
+// delete user
 router.delete('/users/me', auth, async (req, res) => {
   try {
     await req.user.remove();
@@ -108,6 +110,7 @@ const upload = multer({
   },
 });
 
+// upload avatar
 router.post(
   '/users/me/avatar',
   auth,
@@ -123,16 +126,18 @@ router.post(
     res.send();
   },
   (error, req, res, next) => {
-    res.status(400).send({ error: error.message });
+    res.status(400).send({ error: error.message }); // multer error
   },
 );
 
+// delete avatar
 router.delete('/users/me/avatar', auth, async (req, res) => {
   req.user.avatar = undefined;
   await req.user.save();
   res.status(200).send();
 });
 
+// fetch avatar
 router.get('/users/:id/avatar', async (req, res) => {
   try {
     const user = await User.findById(req.params.id);

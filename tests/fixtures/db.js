@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../../src/models/user');
 const Task = require('../../src/models/task');
 
+// Sample data to test on
 const userOneId = new mongoose.Types.ObjectId();
 
 const userOne = {
